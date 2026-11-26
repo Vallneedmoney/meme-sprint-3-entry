@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""A fake chat screenshot of an AI agent going rogue on an inbox.
+
+Entry for make.fun bounty u-steady-ibis-48-6610-meme-sprint-3-ai-agent-goes-d021cde6:
+"Meme Sprint 3: AI Agent Goes Rogue" ($5).
+
+The meme is drawn by draw.py (Pillow, run where Pillow and the
+DejaVu fonts are installed) and stored in this repository as
+entry.png. This program only copies it to the output directory,
+using the Python standard library alone, so it runs in the
+grader's sandbox exactly as it runs anywhere else: no network,
+no third-party packages, no fonts, no randomness, no timestamps.
+Copying bytes means both runs write byte-identical output.
+
+Run:
+    mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
+    # writes out/entry.png (1024x1024, PNG, under 1 MiB)
+In the grader, MAKEFUN_OUTPUT_DIR is unset and the image goes to
+/output/entry.png.
+"""
+
+import os
+import shutil
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.join(HERE, "entry.png")
+
+
+def build():
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, "entry.png")
+    shutil.copyfile(SRC, path)
+    return path
+
+
+if __name__ == "__main__":
+    print(build())
